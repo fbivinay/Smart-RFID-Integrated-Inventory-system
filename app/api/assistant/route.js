@@ -1,3 +1,4 @@
+import { createClient } from "@supabase/supabase-js";
 import { NextResponse } from "next/server";
 
 // Calls Google Gemini on the server so GEMINI_API_KEY never reaches the browser.
@@ -10,6 +11,17 @@ export async function POST(req) {
   const apiKey = process.env.GEMINI_API_KEY;
   if (!apiKey) {
     return NextResponse.json({ error: "GEMINI_API_KEY is not set on the server." }, { status: 500 });
+  }
+
+  // Only signed-in users may spend the Gemini quota.
+  const token = req.headers.get("authorization")?.replace(/^Bearer\s+/i, "");
+  const supabase = createClient(
+    process.env.NEXT_PUBLIC_SUPABASE_URL,
+    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
+  );
+  const { data: auth } = token ? await supabase.auth.getUser(token) : { data: null };
+  if (!auth?.user) {
+    return NextResponse.json({ error: "Please sign in to use the assistant." }, { status: 401 });
   }
 
   const { systemPrompt, question } = await req.json().catch(() => ({}));
