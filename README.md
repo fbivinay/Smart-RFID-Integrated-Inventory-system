@@ -29,7 +29,7 @@ Built with Next.js 15, Supabase, and Tailwind CSS.
 | Database & Auth | Supabase (PostgreSQL + Auth) |
 | Charts | Recharts |
 | Icons | Lucide React |
-| AI Assistant | LLM via the OpenRouter API |
+| AI Assistant | Google Gemini, called from a server route |
 | Hosting | Vercel |
 
 ---
@@ -62,7 +62,7 @@ The AI Chat page answers manager questions using the store's **actual live data*
 
 1. It queries Supabase for current counts, category breakdowns, recent alerts, rack movements, and lists of stolen / misplaced items.
 2. It builds a structured, up-to-the-second context summary from that data.
-3. It sends the context plus the manager's question to an LLM (via OpenRouter) and returns a concise, data-grounded answer.
+3. It sends the context plus the manager's question to Google Gemini through the server route `app/api/assistant` and returns a concise, data-grounded answer.
 
 A lighter, rule-based keyword responder is also included for quick counts without an API call.
 
@@ -128,7 +128,7 @@ The app uses the following tables:
 ### Prerequisites
 - Node.js 18+
 - A [Supabase](https://supabase.com) project (URL + anon key + service-role key)
-- An [OpenRouter](https://openrouter.ai) API key (for the AI Chat feature)
+- A [Google Gemini](https://aistudio.google.com) API key (for the AI Chat feature)
 
 ### Local development
 
@@ -152,7 +152,7 @@ Open [http://localhost:3000](http://localhost:3000).
 | `NEXT_PUBLIC_SUPABASE_URL` | Supabase project URL |
 | `NEXT_PUBLIC_SUPABASE_ANON_KEY` | Supabase anon key (browser-safe) |
 | `SUPABASE_SERVICE_ROLE_KEY` | Service-role key — **server only**, used by the employee-creation route |
-| `NEXT_PUBLIC_OPENROUTER_API_KEY` | OpenRouter key that powers the AI assistant |
+| `GEMINI_API_KEY` | Gemini key that powers the AI assistant — **server only** |
 
 ---
 
