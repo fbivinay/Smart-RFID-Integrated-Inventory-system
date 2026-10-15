@@ -58,7 +58,7 @@ export default function AiChatPage() {
       <PageHeader
         eyebrow="Retail Operations Assistant"
         title="AI Chat"
-        description="Pattern-matched intelligence engine. Queries live Supabase data — no external AI APIs."
+        description="Answers questions from live Supabase inventory data, powered by Google Gemini."
       />
 
       <section className="panel flex min-h-[70vh] flex-col rounded-lg">
@@ -73,7 +73,7 @@ export default function AiChatPage() {
                 Inventory Assistant
               </h2>
               <p className="text-sm text-stone-400">
-                Powered by deterministic retail analytics · Texs Mart RFID data
+                Powered by Google Gemini · Texs Mart RFID data
               </p>
             </div>
           </div>
