@@ -6,6 +6,12 @@ import { AlertCircle, LogIn, Radar } from "lucide-react";
 import { signIn } from "@/lib/auth";
 import { useAuth } from "@/lib/authContext";
 
+// Public demo accounts, one per role, so visitors can try the app in one click.
+const DEMO_USERS = [
+  { label: "Admin",    email: "demo.admin@example.com",    password: "Demo@1234" },
+  { label: "Employee", email: "demo.employee@example.com", password: "Demo@1234" },
+];
+
 export default function LoginPage() {
   const router = useRouter();
   const { user, loading: authLoading } = useAuth();
@@ -23,10 +29,14 @@ export default function LoginPage() {
 
   async function handleSubmit(e) {
     e.preventDefault();
+    await login(email, password);
+  }
+
+  async function login(loginEmail, loginPassword) {
     setError("");
     setLoading(true);
     try {
-      await signIn(email, password);
+      await signIn(loginEmail, loginPassword);
       // Don't push here — the useEffect above will redirect once
       // the auth context picks up the new session via onAuthStateChange.
     } catch (err) {
@@ -104,6 +114,23 @@ export default function LoginPage() {
               {loading ? "Signing in..." : "Sign in"}
             </button>
           </form>
+
+          <div className="mt-6 border-t border-stone-200 pt-5">
+            <p className="mb-3 text-center text-xs font-medium text-stone-500">(Demo) Sign in as</p>
+            <div className="grid grid-cols-2 gap-2">
+              {DEMO_USERS.map((demo) => (
+                <button
+                  key={demo.email}
+                  type="button"
+                  disabled={loading}
+                  onClick={() => login(demo.email, demo.password)}
+                  className="h-9 rounded-lg border border-stone-300 bg-white text-sm font-medium text-stone-700 transition hover:border-brand-500 hover:text-brand-700 disabled:cursor-wait disabled:opacity-60"
+                >
+                  {demo.label}
+                </button>
+              ))}
+            </div>
+          </div>
         </div>
 
         <p className="mt-6 text-center text-xs text-stone-400">
