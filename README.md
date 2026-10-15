@@ -1,5 +1,9 @@
 # 🏷️ Trend Trackers — Smart RFID Inventory Intelligence
 
+**Live:** https://final-tt-rfid.vercel.app (laptop or desktop only; one-click demo logins for Admin and Employee on the sign-in page)
+
+![The executive dashboard: inventory health, misplaced and stolen items, category charts](docs/screenshot.png)
+
 A retail inventory intelligence platform for a clothing store ("Texs Mart"). Every garment carries an **RFID tag**, and the system tracks each item through its full in-store lifecycle — **on the rack → misplaced → billing → sold → stolen** — while flagging theft and misplacement in real time. Store managers get a live analytics dashboard and an **AI assistant** that answers questions about their inventory in plain English.
 
 Built with Next.js 15, Supabase, and Tailwind CSS.
